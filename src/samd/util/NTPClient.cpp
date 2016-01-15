@@ -1,6 +1,6 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
+#if defined(ARDUINO_ARCH_SAMD)
 #include "NTPClient.h"
 
 #define LOCAL_UDP_PORT 2390
@@ -88,3 +88,4 @@ uint32_t NTPClient::parseResponse()
 
     return epoch;
 }
+#endif

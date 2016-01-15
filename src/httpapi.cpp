@@ -9,10 +9,8 @@
 
 #if defined(ARDUINO_ARCH_ESP8266)
 #include "esp8266/util/HTTPSClient.h"
-#include "esp8266/util/NTPClient.h"
 #elif defined(ARDUINO_ARCH_SAMD)
 #include "samd/util/HTTPSClient.h"
-#include "samd/util/NTPClient.h"
 #endif
 
 #define POOL_SIZE 1
@@ -21,34 +19,12 @@ HTTPSClient httpsClients[POOL_SIZE];
 
 HTTPAPI_RESULT HTTPAPI_Init(void)
 {
-    time_t epochTime = (time_t)-1;
-    NTPClient ntpClient;
-
-    ntpClient.begin();
-    while (true) {
-        epochTime = ntpClient.getEpochTime("0.pool.ntp.org");
-
-        if (epochTime == (time_t)-1) {
-            LogError("Fetching NTP epoch time failed!\n");
-            delay(5000);
-        } else {
-            LogInfo("Fetched NTP epoch time is: %lu\n", epochTime);
-            break;
-        }
-    }
-    ntpClient.end();
-
-
-    struct timeval tv;
-    tv.tv_sec = epochTime;
-    tv.tv_usec = 0;
-
-    settimeofday(&tv, NULL);
-
+ /*   timeinit();
+*/
     for (int i = 0; i < POOL_SIZE; i++) {
         httpsClients[i] = HTTPSClient();
         httpsClients[i].setTimeout(10000);
-    }
+    } 
     return HTTPAPI_OK;
 }
 

@@ -1,8 +1,6 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-#include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
-
 
 #ifndef HTTPSCLIENT_H
 #define HTTPSCLIENT_H

@@ -4,24 +4,17 @@
 #include <time.h>
 #include <sys/time.h>
 
-#include <RTCZero.h>
-
-RTCZero rtc;
-
 extern "C" {
     int _gettimeofday(struct timeval* tp, void* /*tzvp*/)
     {
-        tp->tv_sec = rtc.getEpoch();
-        tp->tv_usec = 0;
-
+        //clock_gettime(NULL, tp);
+        
         return 0;
     }
 
-    int settimeofday(const struct timeval* tp, const struct timezone* /*tzp*/)
+    int timeinit()
     {
-        rtc.begin();
-        rtc.setEpoch(tp->tv_sec);
-
-        return 0;
+      //  configTime(0, 0, "0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org");
+       // ensureBootTimeIsSet();
     }
 }

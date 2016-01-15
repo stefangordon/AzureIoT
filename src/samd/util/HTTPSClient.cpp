@@ -1,6 +1,6 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
+#if defined(ARDUINO_ARCH_SAMD)
 #include "HTTPSClient.h"
 
 // #define DEBUG_STREAM Serial
@@ -148,3 +148,4 @@ int HTTPSClient::readBody(unsigned char *content, int length)
 #endif
     return 1;
 }
+#endif
