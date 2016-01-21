@@ -5,18 +5,16 @@
 #define LOGGING_H
 #include <stdio.h>
 #include "agenttime.h"
+#include <pgmspace.h>
 
 #define STRINGIFY(a) (#a)
 
-#define LogUsage //(void)printf
+#define LogUsage (void)printf
 
 
-#define LogInfo(...) //(void)printf("Info: " __VA_ARGS__)
+#define LogInfo(...) (void)printf("Info: " __VA_ARGS__)
 
-#if defined _MSC_VER
-#define LogError(FORMAT, ...) //{ time_t t = time(NULL); (void)fprintf(stderr,"%.24s :%s :%s :%d " FORMAT, ctime(&t), __FILE__, __FUNCDNAME__, __LINE__, __VA_ARGS__); }
-#else
-#define LogError(FORMAT, ...) //{ time_t t = time(NULL); (void)fprintf(stderr,"%.24s :%s :%s :%d " FORMAT, ctime(&t), __FILE__, __func__, __LINE__, ##__VA_ARGS__); }
-#endif
+#define LogError(FORMAT) (void)printf(PSTR(FORMAT))
+#define LogError(FORMAT, ...) //(void)printf(PSTR(FORMAT), __VA_ARGS__)
 
 #endif /* LOGGING_H */
