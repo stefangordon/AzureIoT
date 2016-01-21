@@ -1235,7 +1235,7 @@ void Destroy_AGENT_DATA_TYPE(AGENT_DATA_TYPE* agentData)
     }
 }
 
-#define tempBufferSize 10240
+#define tempBufferSize 4086
 static char tempBuffer[tempBufferSize];
 
 static char hexDigitToChar(uint8_t hexDigit)
