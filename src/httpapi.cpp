@@ -21,6 +21,8 @@ HTTPAPI_RESULT HTTPAPI_Init(void)
 {
  /*   timeinit();
 */
+    configTime(3 * 3600, 0, "pool.ntp.org", "time.nist.gov");
+    
     for (int i = 0; i < POOL_SIZE; i++) {
         httpsClients[i] = HTTPSClient();
         httpsClients[i].setTimeout(10000);
