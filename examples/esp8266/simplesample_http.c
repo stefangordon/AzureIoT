@@ -27,12 +27,13 @@ and removing calls to _DoWork will yield the same results. */
 
 static const char* connectionString = "HostName=[host].azure-devices.net;DeviceId=[device];SharedAccessKey=[key]";
 
+
 // Define the Model
 BEGIN_NAMESPACE(WeatherStation);
 
 DECLARE_MODEL(ContosoAnemometer,
 WITH_DATA(ascii_char_ptr, DeviceId),
-WITH_DATA(double, WindSpeed),
+WITH_DATA(int, WindSpeed),
 WITH_ACTION(TurnFanOn),
 WITH_ACTION(TurnFanOff),
 WITH_ACTION(SetAirResistance, int, Position)
@@ -45,21 +46,21 @@ DEFINE_ENUM_STRINGS(IOTHUB_CLIENT_CONFIRMATION_RESULT, IOTHUB_CLIENT_CONFIRMATIO
 EXECUTE_COMMAND_RESULT TurnFanOn(ContosoAnemometer* device)
 {
     (void)device;
-    (void)printf(PSTR("Turning fan on.\r\n"));
+    LogInfo("Turning fan on.\r\n");
     return EXECUTE_COMMAND_SUCCESS;
 }
 
 EXECUTE_COMMAND_RESULT TurnFanOff(ContosoAnemometer* device)
 {
     (void)device;
-    (void)printf(PSTR("Turning fan off.\r\n"));
+    LogInfo("Turning fan off.\r\n");
     return EXECUTE_COMMAND_SUCCESS;
 }
 
 EXECUTE_COMMAND_RESULT SetAirResistance(ContosoAnemometer* device, int Position)
 {
     (void)device;
-    (void)printf(PSTR("Setting Air Resistance Position to %d.\r\n"), Position);
+    LogInfo("Setting Air Resistance Position to %d.\r\n", Position);
     return EXECUTE_COMMAND_SUCCESS;
 }
 
@@ -67,9 +68,9 @@ void sendCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, void* userContextCal
 {
     int messageTrackingId = (intptr_t)userContextCallback;
 
-    (void)printf(PSTR("Message Id: %d Received.\r\n"), messageTrackingId);
+    LogInfo("Message Id: %d Received.\r\n", messageTrackingId);
 
-    (void)printf(PSTR("Result Call Back Called! Result is: %s \r\n"), ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
+    LogInfo("Result Call Back Called! Result is: %s \r\n", ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
 }
 
 static void sendMessage(IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle, const unsigned char* buffer, size_t size)
@@ -135,17 +136,17 @@ void simplesample_http_run(void)
 {
     if (serializer_init(NULL) != SERIALIZER_OK)
     {
-        (void)printf(PSTR("Failed on serializer_init\r\n"));
+        LogInfo("Failed on serializer_init\r\n");
     }
     else
     {
         IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(connectionString, HTTP_Protocol);
         srand((unsigned int)time(NULL));
-        double avgWindSpeed = 10.0;
+        int avgWindSpeed = 10.0;
 
         if (iotHubClientHandle == NULL)
         {
-            (void)printf(PSTR("Failed on IoTHubClient_LL_Create\r\n"));
+            LogInfo("Failed on IoTHubClient_LL_Create\r\n");
         }
         else
         {
@@ -159,14 +160,14 @@ void simplesample_http_run(void)
             // For mbed add the certificate information
             if (IoTHubClient_LL_SetOption(iotHubClientHandle, "TrustedCerts", certificates) != IOTHUB_CLIENT_OK)
             {
-                (void)printf(PSTR("failure to set option \"TrustedCerts\"\r\n"));
+                LogInfo("failure to set option \"TrustedCerts\"\r\n");
             }
 #endif // MBED_BUILD_TIMESTAMP
 
             ContosoAnemometer* myWeather = CREATE_MODEL_INSTANCE(WeatherStation, ContosoAnemometer);
             if (myWeather == NULL)
             {
-                (void)printf(PSTR("Failed on CREATE_MODEL_INSTANCE\r\n"));
+                LogInfo("Failed on CREATE_MODEL_INSTANCE\r\n");
             }
             else
             {
@@ -183,7 +184,7 @@ void simplesample_http_run(void)
                         size_t destinationSize;
                         if (SERIALIZE(&destination, &destinationSize, myWeather->DeviceId, myWeather->WindSpeed) != IOT_AGENT_OK)
                         {
-                            (void)printf(PSTR("Failed to serialize\r\n"));
+                            LogInfo("Failed to serialize\r\n");
                         }
                         else
                         {

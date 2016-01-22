@@ -9,12 +9,10 @@
 
 #define STRINGIFY(a) (#a)
 
-#define LogUsage (void)printf
+#define LogUsage(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
 
+#define LogInfo(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
 
-#define LogInfo(...) (void)printf("Info: " __VA_ARGS__)
-
-#define LogError(FORMAT) (void)printf(PSTR(FORMAT))
-#define LogError(FORMAT, ...) //(void)printf(PSTR(FORMAT), __VA_ARGS__)
+#define LogError(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
 
 #endif /* LOGGING_H */

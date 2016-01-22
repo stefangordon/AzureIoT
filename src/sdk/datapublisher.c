@@ -21,7 +21,7 @@ DEFINE_ENUM_STRINGS(DATA_PUBLISHER_RESULT, DATA_PUBLISHER_RESULT_VALUES)
 #define LOG_DATA_PUBLISHER_ERROR \
     LogError("(result = %s)\r\n", ENUM_TO_STRING(DATA_PUBLISHER_RESULT, result))
 
-#define DEFAULT_MAX_BUFFER_SIZE 10240
+#define DEFAULT_MAX_BUFFER_SIZE 4096
 /* Codes_SRS_DATA_PUBLISHER_99_066:[ A single value shall be used by all instances of DataPublisher.] */
 /* Codes_SRS_DATA_PUBLISHER_99_067:[ Before any call to DataPublisher_SetMaxBufferSize, the default max buffer size shall be equal to 10KB.] */
 static size_t maxBufferSize_ = DEFAULT_MAX_BUFFER_SIZE;

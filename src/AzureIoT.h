@@ -13,3 +13,5 @@
 #include "sdk/iothub_message.h"
 #include "sdk/iothubtransporthttp.h"
 
+#include "sdk/iot_logging.h"
+

@@ -26,8 +26,9 @@ int sscanf(const char* source, const char* format, ...) {
     return ret;
 }
 
-double difftime(time_t end, time_t beginning) {
-    return -1;
+double difftime (time_t time1, time_t time0)
+{
+    return (double)time1 - (double)time0;
 }
 
 #endif
