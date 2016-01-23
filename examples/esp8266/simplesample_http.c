@@ -27,7 +27,6 @@ and removing calls to _DoWork will yield the same results. */
 
 static const char* connectionString = "HostName=[host].azure-devices.net;DeviceId=[device];SharedAccessKey=[key]";
 
-
 // Define the Model
 BEGIN_NAMESPACE(WeatherStation);
 

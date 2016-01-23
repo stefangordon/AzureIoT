@@ -1,7 +1,12 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#if defined(ARDUINO_ARCH_ESP8266)
+
 #include "HTTPSClient.h"
+
+// Uncomment the below to see HTTP traffic in
+// your debug output.
 
 // #define DEBUG_STREAM Serial
 
@@ -148,3 +153,5 @@ int HTTPSClient::readBody(unsigned char *content, int length)
 #endif
     return 1;
 }
+
+#endif
