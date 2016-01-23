@@ -4,7 +4,8 @@ This library is a port of the [Microsoft Azure IoT device SDK for C](https://git
 
 The following boards are supported
 - Arduino/Genuino [MKR1000](https://www.arduino.cc/en/Main/ArduinoMKR1000) 
-- [Zero](https://www.arduino.cc/en/Main/ArduinoBoardZero) and [WiFi Shield 101](https://www.arduino.cc/en/Main/ArduinoWiFiShield101) - ESP8266 based boards
+- [Zero](https://www.arduino.cc/en/Main/ArduinoBoardZero) and [WiFi Shield 101](https://www.arduino.cc/en/Main/ArduinoWiFiShield101) 
+- ESP8266 based boards
 
 [![Microsoft Azure Certified][Microsoft-Azure-Certified-Badge]][azure-certifiedforiot]
 
@@ -14,16 +15,17 @@ See the [Microsoft Azure IoT device SDK for C - Arduino WiFi Shield 101 and MKR1
 
 ## Working with ESP8266
 
-Use Arduino IDE 1.6.8 or later (or current nightly if not yet released).
+- Use Arduino IDE 1.6.8 or later (or current nightly if not yet released).
 
-Install esp8266 board support following instructions under "Using git version" at [esp8266/arduino](https://github.com/esp8266/arduino).
+- Install esp8266 board support following instructions under "Using git version" at [esp8266/arduino](https://github.com/esp8266/arduino).
 
-Install this library from source
+- Install this library from source
 
 ```
 cd C:\Program Files (x86)\Arduino\libraries
 git clone <repo url for this source>
 ```
+- Open sample provided in library directory
 
 ## License
 
