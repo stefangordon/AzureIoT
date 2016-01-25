@@ -5,19 +5,19 @@ This library is a port of the [Microsoft Azure IoT device SDK for C](https://git
 The following boards are supported
 - Arduino/Genuino [MKR1000](https://www.arduino.cc/en/Main/ArduinoMKR1000) 
 - [Zero](https://www.arduino.cc/en/Main/ArduinoBoardZero) and [WiFi Shield 101](https://www.arduino.cc/en/Main/ArduinoWiFiShield101) 
-- ESP8266 based boards
+- ESP8266 based boards with esp8266/arduino
 
 [![Microsoft Azure Certified][Microsoft-Azure-Certified-Badge]][azure-certifiedforiot]
 
-## Getting started
+## Getting started with MKR1000 or Zero
 
 See the [Microsoft Azure IoT device SDK for C - Arduino WiFi Shield 101 and MKR1000 Setup Guide](https://github.com/Azure/azure-iot-sdks/blob/master/c/doc/run_sample_on_arduino_wifi101.md).
 
-## Working with ESP8266
+## Getting started with ESP8266
 
-- Use Arduino IDE 1.6.8 or later (or current nightly if not yet released).
+- Use Arduino IDE 1.6.8 or later (or [current hourly](https://www.arduino.cc/en/Main/Software) if not yet released).
 
-- Install esp8266 board support following instructions under "Using git version" at [esp8266/arduino](https://github.com/esp8266/arduino).
+- Install esp8266 board support from staging or from source at [esp8266/arduino](https://github.com/esp8266/arduino).
 
 - Install this library from source
 
@@ -25,7 +25,19 @@ See the [Microsoft Azure IoT device SDK for C - Arduino WiFi Shield 101 and MKR1
 cd C:\Program Files (x86)\Arduino\libraries
 git clone <repo url for this source>
 ```
-- Open sample provided in library directory
+- Open sample provided in library directory 
+```
+\examples\esp8266\AzureIoTTest.ino
+```
+- Update Wifi SSID/Password in AzureIoTTest.ino
+- Update Connection string in simplesample_http.c
+
+## ESP8266 Tips
+There is very little ram left available after the ESP SDK, SSL and Azure SDK.  Every effort must be made to store strings and data on flash rather than RAM.
+
+There are not yet understood issues with printf.  Use os_printf(...) or Serial.Print(...) as appropriate.
+
+There is no floating point printf support - you must use integer data types in your messages.
 
 ## License
 
