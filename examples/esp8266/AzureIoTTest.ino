@@ -45,15 +45,20 @@ void initWifi() {
 }
 
 void initTime() {
-	// Initialize time via NTP server
-  	// The delays increase the reliability of this
-  	// and help ensure time is set before we move on.
-  	// Better solution coming soon.
-	delay(2000);
-	// Configure NTP servers
-  	// First parameter is time zone offset in seconds.  We'll use 0 for GMT.
-  	configTime(0, 0, "pool.ntp.org", "time.nist.gov");
-  	// Make a time request
-	time(NULL);
-  	delay(3000);
+ 	time_t epochTime;
+
+    configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+
+    while (true) {
+        epochTime = time(NULL);
+
+        if (epochTime == 0) {
+            Serial.println("Fetching NTP epoch time failed! Waiting 2 seconds to retry.");
+            delay(2000);
+        } else {
+            Serial.print("Fetched NTP epoch time is: ");
+            Serial.println(epochTime);
+            break;
+        }
+    }
 }

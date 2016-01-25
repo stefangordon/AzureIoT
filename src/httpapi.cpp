@@ -21,15 +21,17 @@ HTTPSClient httpsClients[POOL_SIZE];
 HTTPAPI_RESULT HTTPAPI_Init(void)
 {
     #if defined(ARDUINO_ARCH_SAMD)
-        time_t epochTime = (time_t)-1;
-    NTPClient ntpClient;
+ 
+    time_t epochTime = (time_t)-1;
 
+    NTPClient ntpClient;
     ntpClient.begin();
+
     while (true) {
         epochTime = ntpClient.getEpochTime("0.pool.ntp.org");
 
         if (epochTime == (time_t)-1) {
-            LogError("Fetching NTP epoch time failed!\n");
+            LogError("Fetching NTP epoch time failed! Waiting 5 seconds to retry.\n");
             delay(5000);
         } else {
             LogInfo("Fetched NTP epoch time is: %lu\n", epochTime);
