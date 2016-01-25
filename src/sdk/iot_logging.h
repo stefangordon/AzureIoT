@@ -3,16 +3,30 @@
 
 #ifndef LOGGING_H
 #define LOGGING_H
+
+// Arduino requires external definitions for LogUsage, LogInfo, and LogError
+// due to platform differences in output implementations
+#ifdef ARDUINO
+
+#include "arduino_logging.h"
+
+#else /* !ARDUINO */
+
 #include <stdio.h>
 #include "agenttime.h"
-#include <pgmspace.h>
 
 #define STRINGIFY(a) (#a)
 
-#define LogUsage(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
+#define LogUsage (void)printf
 
-#define LogInfo(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
 
-#define LogError(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
+#define LogInfo(...) (void)printf("Info: " __VA_ARGS__)
 
+#if defined _MSC_VER
+#define LogError(FORMAT, ...) { time_t t = time(NULL); (void)fprintf(stderr,"Error: Time:%.24s File:%s Func:%s Line:%d " FORMAT, ctime(&t), __FILE__, __FUNCDNAME__, __LINE__, __VA_ARGS__); }
+#else
+#define LogError(FORMAT, ...) { time_t t = time(NULL); (void)fprintf(stderr,"Error: Time:%.24s File:%s Func:%s Line:%d " FORMAT, ctime(&t), __FILE__, __func__, __LINE__, ##__VA_ARGS__); }
+#endif
+
+#endif /* !ARDUINO */
 #endif /* LOGGING_H */
