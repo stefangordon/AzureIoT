@@ -21,17 +21,11 @@ int fprintf(FILE* file, const char* format, ...) {
     return ret;
 }
 
-int sscanf(const char* source, const char* format, ...) {
-    int ret = -1;
-    return ret;
-}
-
 double difftime (time_t time1, time_t time0)
 {
-    return (double) (time1 - time0);
+    double t1 = time1, t0 = time0;
+    return t1 - t0;
 }
-
-#endif
 
 // The below code was taken from newlib source and altered
 // to remove support for options and build environments we
@@ -118,3 +112,5 @@ _CONST char _ctype_[1 + 256] = {
 };
 
 _CONST char *__ctype_ptr__ = (char *) _ctype_;
+
+#endif // (ARDUINO_ARCH_ESP8266)
