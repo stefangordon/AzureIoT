@@ -28,7 +28,7 @@ int sscanf(const char* source, const char* format, ...) {
 
 double difftime (time_t time1, time_t time0)
 {
-    return (double)time1 - (double)time0;
+    return (double) (time1 - time0);
 }
 
 #endif
@@ -38,7 +38,6 @@ double difftime (time_t time1, time_t time0)
 // do not plan to support.
 // Support removed: ALLOW_NEGATIVE_CTYPE_INDEX, _MB_CAPABLE, _MB_EXTENDED_CHARSETS_ISO
 //                  _MB_EXTENDED_CHARSETS_WINDOWS
-
 // Environments not supported: Cygwin
 
 /*
