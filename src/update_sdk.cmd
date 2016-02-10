@@ -1,3 +1,7 @@
+REM This script replaces the SDK folder with the latest bits from the Azure SDK repository.
+REM It removes some files we do not need.  It currently targets the develop branch until fixes are
+REM merged into master.
+
 if exist "%~dp0\temp" rd /s /q "%~dp0\temp"
 if exist "%~dp0\sdk" rd /s /q "%~dp0\sdk"
 
@@ -7,6 +11,16 @@ mkdir "%~dp0\sdk"
 cd /D "%~dp0\temp"
 
 git clone -b develop https://github.com/Azure/azure-iot-sdks.git --recursive
+
+cd "%~dp0\temp\azure-iot-sdks\"
+
+git checkout develop
+
+git reset --hard HEAD
+
+git pull origin develop
+
+cd "%~dp0\temp"
 
 copy "%~dp0\temp\azure-iot-sdks\c\iothub_client\src\" "%~dp0\sdk"
 copy "%~dp0\temp\azure-iot-sdks\c\iothub_client\inc\" "%~dp0\sdk"
