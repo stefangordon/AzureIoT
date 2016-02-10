@@ -22,8 +22,8 @@ del "%~dp0\sdk\iothubtransportamqp_websockets.*"
 del "%~dp0\sdk\iothubtransportmqtt.*"
 del "%~dp0\sdk\tickcounter.*"
 del "%~dp0\sdk\tlsio*.*"
+del "%~dp0\sdk\constbuffer.*"
 
 cd ..
 
 rmdir /S "%~dp0\temp"
-
