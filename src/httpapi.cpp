@@ -5,7 +5,7 @@
 #include <sys/time.h>
 
 #include "sdk/httpapi.h"
-#include "sdk/iot_logging.h"
+#include "iot_logging.h"
 
 #if defined(ARDUINO_ARCH_ESP8266)
 #include "esp8266/util/HTTPSClient.h"

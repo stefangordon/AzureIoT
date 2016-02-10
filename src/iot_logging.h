@@ -11,9 +11,9 @@ in a later revision.
 
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <pgmspace.h>
-#define LogUsage(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
-#define LogInfo(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
-#define LogError(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__)
+#define LogUsage(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__);
+#define LogInfo(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__);
+#define LogError(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__);
 #elif defined(ARDUINO_ARCH_SAMD)
 #include "agenttime.h"
 #define LogUsage (void)printf
