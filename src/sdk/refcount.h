@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 
-/*this header contains macros for ref_counting a variable. 
+/*this header contains macros for ref_counting a variable.
 
 There are no upper bound checks related to uint32_t overflow because we expect that bigger issues are in
 the system when more than 4 billion references exist to the same variable. In the case when such an overflow
@@ -17,7 +17,7 @@ will interact with deallocated memory / resources resulting in an undefined beha
 #ifdef __cplusplus
 #include <cstdlib>
 #include <cstdint>
-extern "C" 
+extern "C"
 {
 #else
 #include <stdlib.h>
@@ -59,29 +59,29 @@ static type* REFCOUNT_TYPE_DECLARE_CREATE(type) (void)                          
 
 /*the following macros increment/decrement a ref count in an atomic way, depending on the platform*/
 /*The following mechanisms are considered in this order
-C11 
-    - will result in #include <stdatomic.h> 
-    - will use atomic_fetch_add/sub; 
+C11
+    - will result in #include <stdatomic.h>
+    - will use atomic_fetch_add/sub;
     - about the return value: "Atomically, the value pointed to by object immediately before the effects"
-windows 
+windows
     - will result in #include "windows.h"
-    - will use InterlockedIncrement/InterlockedDecrement; 
+    - will use InterlockedIncrement/InterlockedDecrement;
     - about the return value: https://msdn.microsoft.com/en-us/library/windows/desktop/ms683580(v=vs.85).aspx "The function returns the resulting decremented value"
 gcc
     - will result in no include (for gcc these are intrinsics build in)
     - will use __sync_fetch_and_add/sub
     - about the return value: "... returns the value that had previously been in memory." (https://gcc.gnu.org/onlinedocs/gcc-4.4.3/gcc/Atomic-Builtins.html#Atomic-Builtins)
 other cases
-    - if REFCOUNT_ATOMIC_DONTCARE is defined, then 
+    - if REFCOUNT_ATOMIC_DONTCARE is defined, then
         will result in ++/-- used for increment/decrement.
     - if it is not defined, then error out
-       
-It seems windows is "one off" because it returns the value "after" the decrement, as opposed to C11 standard and gcc that return the value "before". 
+
+It seems windows is "one off" because it returns the value "after" the decrement, as opposed to C11 standard and gcc that return the value "before".
 The macro DEC_RETURN_ZERO will be "0" on windows, and "1" on the other cases.
 */
 
 /*if macro DEC_REF returns DEC_RETURN_ZERO that means the ref count has reached zero.*/
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ == 201112) && (__STDC_NO_ATOMICS__!=1)
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ == 201112) && (__STDC_NO_ATOMICS__!=1) && !defined(__GNUC__)
 #include <stdatomic.h>
 #define DEC_RETURN_ZERO (1)
 #define INC_REF(type, var) atomic_fetch_add((&((REFCOUNT_TYPE(type)*)var)->count), 1)

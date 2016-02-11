@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define STRINGIFY(a) (#a)
 
-/* 
+/*
 ESP8266 has limited RAM so we force all logging strings to PROGMEM (flash)
 and we leverage os_printf rather than printf.
 
@@ -15,7 +15,6 @@ in a later revision.
 #define LogInfo(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__);
 #define LogError(FORMAT, ...) (void)os_printf(PSTR(FORMAT), ##__VA_ARGS__);
 #elif defined(ARDUINO_ARCH_SAMD)
-#include "agenttime.h"
 #define LogUsage (void)printf
 #define LogInfo(...) (void)printf("Info: " __VA_ARGS__)
 #if defined _MSC_VER

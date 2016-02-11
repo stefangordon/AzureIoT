@@ -10,8 +10,13 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include "esp8266/util/HTTPSClient.h"
 #elif defined(ARDUINO_ARCH_SAMD)
+#if defined(ARDUINO_SAMD_FEATHER_M0)
+#include "featherm0/util/HTTPSClient.h"
+#include "featherm0/util/NTPClient.h"
+#else
 #include "samd/util/HTTPSClient.h"
 #include "samd/util/NTPClient.h"
+#endif
 #endif
 
 #define POOL_SIZE 1
@@ -21,7 +26,7 @@ HTTPSClient httpsClients[POOL_SIZE];
 HTTPAPI_RESULT HTTPAPI_Init(void)
 {
     #if defined(ARDUINO_ARCH_SAMD)
- 
+
     time_t epochTime = (time_t)-1;
 
     NTPClient ntpClient;
@@ -47,12 +52,12 @@ HTTPAPI_RESULT HTTPAPI_Init(void)
 
     settimeofday(&tv, NULL);
 
-    #endif  
+    #endif
 
     for (int i = 0; i < POOL_SIZE; i++) {
         httpsClients[i] = HTTPSClient();
         httpsClients[i].setTimeout(10000);
-    } 
+    }
     return HTTPAPI_OK;
 }
 
@@ -101,7 +106,7 @@ static const char* HTTPRequestTypes[] = {
     "PATCH"
 };
 
-HTTPAPI_RESULT HTTPAPI_ExecuteRequest(HTTP_HANDLE handle, 
+HTTPAPI_RESULT HTTPAPI_ExecuteRequest(HTTP_HANDLE handle,
         HTTPAPI_REQUEST_TYPE requestType, const char* relativePath,
         HTTP_HEADERS_HANDLE httpHeadersHandle, const unsigned char* content,
         size_t contentLength, unsigned int* statusCode,
