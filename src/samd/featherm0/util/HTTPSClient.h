@@ -1,12 +1,8 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 //
-// #include <Adafruit_WINC1500.h>
-// #include <Adafruit_WINC1500Client.h>
-// #include <Adafruit_WINC1500MDNS.h>
-// #include <Adafruit_WINC1500Server.h>
+
 #include <Adafruit_WINC1500SSLClient.h>
-// #include <Adafruit_WINC1500Udp.h>
 
 #ifndef HTTPSCLIENT_H
 #define HTTPSCLIENT_H

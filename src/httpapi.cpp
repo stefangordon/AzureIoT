@@ -11,8 +11,8 @@
 #include "esp8266/util/HTTPSClient.h"
 #elif defined(ARDUINO_ARCH_SAMD)
 #if defined(ARDUINO_SAMD_FEATHER_M0)
-#include "featherm0/util/HTTPSClient.h"
-#include "featherm0/util/NTPClient.h"
+#include "samd/featherm0/util/HTTPSClient.h"
+#include "samd/featherm0/util/NTPClient.h"
 #else
 #include "samd/util/HTTPSClient.h"
 #include "samd/util/NTPClient.h"

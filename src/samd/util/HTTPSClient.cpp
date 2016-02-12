@@ -2,12 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 #if defined(ARDUINO_ARCH_SAMD)
 #if defined(ARDUINO_SAMD_FEATHER_M0)
-#include "../../featherm0/util/HTTPSCLient.h"
+#include "../featherm0/util/HTTPSCLient.h"
 #else
 #include "HTTPSClient.h"
 #endif
 
-#define DEBUG_STREAM Serial
+// #define DEBUG_STREAM Serial
 
 HTTPSClient::HTTPSClient() :
     _contentLength(0)
