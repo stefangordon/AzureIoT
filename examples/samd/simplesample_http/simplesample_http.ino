@@ -1,20 +1,21 @@
 // Copyright (c) Arduino. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 #include <SPI.h>
+
+#ifdef ARDUINO_SAMD_FEATHER_M0
 #include <Adafruit_WINC1500.h>
 #include <Adafruit_WINC1500Client.h>
 #include <Adafruit_WINC1500MDNS.h>
 #include <Adafruit_WINC1500Server.h>
 #include <Adafruit_WINC1500SSLClient.h>
 #include <Adafruit_WINC1500Udp.h>
-#include <time.h>
-
-// #include <WiFi101.h>
-
-
+#elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
+#include <WiFi101.h>
+#endif
 
 #include "simplesample_http.h"
 
+#ifdef ARDUINO_SAMD_FEATHER_M0
 // Define the WINC1500 board connections below.
 // If you're following the Adafruit WINC1500 board
 // guide you don't need to modify these:
@@ -30,6 +31,7 @@
 
 // Setup the WINC1500 connection with the pins above and the default hardware SPI.
 Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
+#endif
 
 char ssid[] = ""; //  your network SSID (name)
 char pass[] = "";    // your network password (use for WPA, or use as key for WEP)
@@ -45,11 +47,6 @@ void setup() {
   while(!Serial) {
     ;
   }
-
-  double dt = difftime(time(NULL),0);
-  int idt = difftime(time(NULL),0);
-  Serial.println(dt);
-  Serial.println(idt);
 
   // check for the presence of the shield :
   if (WiFi.status() == WL_NO_SHIELD) {
