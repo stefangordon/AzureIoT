@@ -19,7 +19,16 @@ You should have the following ready before beginning with any board:
 -   [Setup your IoT hub](https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md)
 -   [Provision your device and get its credentials](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md)
 -   [Arduino IDE 1.6.8](https://www.arduino.cc/en/Main/Software)
--   Install the `AzureIoTHub` library via the Arduino IDE Library Manager
+-   Install the `AzureIoTHub` library 
+   * Currently this must be installed from source control by cloning the repo into your arduino libraries folder.  An example is below:	
+   
+         ```		
+         cd C:\Program Files (x86)\Arduino\libraries		
+         git clone <the URI for this repository>		
+         ```		
+         
+         alternatively you can download the [zip file](https://github.com/stefangordon/AzureIoT/archive/master.zip) and place the contents at `C:\Program Files (x86)\Arduino\libraries\AzureIoT`
+-   Then reference the section appropriate for your hardware below.
 
 ## ESP8266
 ##### Sparkfun Thing, Adafruit Feather Huzzah, or generic ESP8266 board
